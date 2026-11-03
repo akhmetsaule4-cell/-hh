@@ -1,248 +1,259 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главный врач цифровой клиники - EmAI</title>
+    <title>EmAI - Главный врач цифровой клиники</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        
-        /* Скрываем скроллбар для вкладок на мобильных */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
+        
         /* Стили для активной вкладки */
         .tab-link.active {
-            color: #2563eb; /* blue-600 */
+            color: #2563eb;
             border-bottom-color: #2563eb;
             font-weight: 700;
         }
         
-        /* Отступ для секций, чтобы они не прятались под липким меню */
+        /* Отступ, чтобы заголовки не скрывались под липким меню */
         section { scroll-margin-top: 140px; }
         
-        /* Анимация появления */
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        /* Плавное появление */
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased pb-24 md:pb-0 relative">
+<body class="bg-slate-50 text-slate-800 antialiased relative">
 
-    <!-- Липкая шапка с логотипом и вкладками -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 fixed w-full top-0 z-50 shadow-sm">
-        <!-- Верхняя часть: Логотип и кнопка -->
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Логотип (Увеличен) -->
-            <a href="#" class="flex items-center group">
-                <img src="logo.png" alt="emai" class="h-14 md:h-16 w-auto object-contain transition-transform group-hover:scale-105">
-            </a>
+    <!-- ========================================== -->
+    <!-- ГЛАВНАЯ СТРАНИЦА (ПОКАЗЫВАЕТСЯ ПО УМОЛЧАНИЮ) -->
+    <!-- ========================================== -->
+    <div id="view-home" class="min-h-screen flex flex-col fade-in">
+        
+        <!-- Шапка главной -->
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+                <!-- Логотип -->
+                <div class="flex items-center">
+                    <img src="logo.png" alt="emai" class="h-14 md:h-16 w-auto object-contain">
+                </div>
+                <!-- Кнопка на вакансию в шапке -->
+                <button onclick="showVacancy()" class="hidden md:inline-flex bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-semibold transition shadow-md shadow-blue-200">
+                    Открытые вакансии
+                </button>
+            </div>
+        </header>
 
-            <!-- Кнопка на HH (Десктоп) -->
-            <a href="https://hh.kz/vacancy/139073456" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-semibold transition shadow-md shadow-blue-200">
+        <!-- Контент главной -->
+        <main class="flex-grow flex items-center justify-center px-4 py-12">
+            <div class="max-w-4xl w-full text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+                    Строим медицину <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-400">будущего</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 mb-12 max-w-2xl mx-auto">
+                    EmAI — казахстанская MedTech-компания, создающая цифровую клинику полного цикла. Мы объединяем AI и медицину для создания бесшовного маршрута пациента.
+                </p>
+
+                <!-- Карточка вакансии -->
+                <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-slate-200 max-w-2xl mx-auto transform hover:-translate-y-1 transition duration-300">
+                    <div class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+                        Мы в поиске
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Главный врач цифровой клиники</h2>
+                    <p class="text-slate-600 mb-8">
+                        Ищем лидера, готового работать на стыке медицины, IT и бизнеса. Уровень дохода: <strong class="text-emerald-600">от 800 000 до 1 000 000 ₸</strong>.
+                    </p>
+                    
+                    <button onclick="showVacancy()" class="inline-flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold py-4 rounded-xl transition shadow-lg shadow-blue-200">
+                        Посмотреть вакансию
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- СТРАНИЦА ВАКАНСИИ (СКРЫТА ПО УМОЛЧАНИЮ) -->
+    <!-- ========================================== -->
+    <div id="view-vacancy" class="hidden min-h-screen pb-24 md:pb-0 fade-in relative">
+        
+        <!-- Шапка вакансии с вкладками -->
+        <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 fixed w-full top-0 z-50 shadow-sm">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+                <!-- Логотип (Возвращает на главную) -->
+                <button onclick="showHome()" class="flex items-center group" title="На главную">
+                    <img src="logo.png" alt="emai" class="h-14 md:h-16 w-auto object-contain transition-transform group-hover:scale-105">
+                </button>
+                <!-- Кнопка отклика в шапке -->
+                <a href="https://hh.kz/vacancy/139073456" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-semibold transition shadow-md shadow-blue-200">
+                    Откликнуться на HH
+                </a>
+            </div>
+
+            <!-- Вкладки -->
+            <div class="border-t border-slate-100">
+                <div class="max-w-6xl mx-auto px-2 md:px-4">
+                    <nav class="flex overflow-x-auto hide-scrollbar whitespace-nowrap">
+                        <a href="#about" class="tab-link text-slate-500 hover:text-blue-600 border-b-2 border-transparent py-3 px-4 text-sm md:text-base transition-colors">О компании</a>
+                        <a href="#duties" class="tab-link text-slate-500 hover:text-blue-600 border-b-2 border-transparent py-3 px-4 text-sm md:text-base transition-colors">Обязанности</a>
+                        <a href="#requirements" class="tab-link text-slate-500 hover:text-blue-600 border-b-2 border-transparent py-3 px-4 text-sm md:text-base transition-colors">Требования</a>
+                        <a href="#conditions" class="tab-link text-slate-500 hover:text-blue-600 border-b-2 border-transparent py-3 px-4 text-sm md:text-base transition-colors">Условия</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Контент вакансии -->
+        <main class="max-w-6xl mx-auto px-4 pt-36 md:pt-40 pb-12">
+            <div class="mb-10 max-w-3xl">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">MedTech</span>
+                    <span class="text-slate-500 text-sm font-medium">Опубликовано сегодня</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">Главный врач цифровой клиники</h1>
+                
+                <div class="flex flex-wrap items-center gap-4 mb-8">
+                    <div class="text-3xl font-bold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-2xl border border-emerald-100 shadow-sm">
+                        800 000 – 1 000 000 ₸
+                    </div>
+                    <span class="text-slate-500 font-medium">на руки, за месяц</span>
+                </div>
+
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="bg-white border border-slate-200 text-slate-700 px-4 py-1.5 rounded-lg text-sm font-medium shadow-sm flex items-center gap-2">Полная занятость</span>
+                    <span class="bg-white border border-slate-200 text-slate-700 px-4 py-1.5 rounded-lg text-sm font-medium shadow-sm flex items-center gap-2">Опыт 3–6 лет</span>
+                    <span class="bg-white border border-slate-200 text-slate-700 px-4 py-1.5 rounded-lg text-sm font-medium shadow-sm flex items-center gap-2">График 5/2</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Левая колонка -->
+                <div class="md:col-span-2 space-y-6">
+                    
+                    <section id="about" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-900 mb-4">О компании</h2>
+                        <div class="text-slate-600 leading-relaxed space-y-4">
+                            <p><strong>EmAI</strong> — казахстанская MedTech-компания, создающая цифровую клинику полного цикла.</p>
+                            <p>Мы строим экосистему: телемедицина → лабораторные исследования → расшифровка анализов → электронные рецепты → очные визиты → сопровождение пациента. Целевая модель — «одно окно» с бесшовным маршрутом пациента.</p>
+                        </div>
+                    </section>
+
+                    <section id="duties" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-900 mb-4">Обязанности</h2>
+                        <ul class="space-y-3 text-slate-600">
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Организовать качественное и безопасное оказание медицинской помощи, внедрить систему контроля качества и медицинские стандарты.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Развивать и управлять командой врачей, в том числе распределенной по регионам.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Обеспечивать соблюдение лицензионных требований, медицинского законодательства и внутренних регламентов.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Участвовать в создании и развитии цифровых продуктов: путь пациента, видеоконсультации, чат-сценарии, AI-триаж и другие медицинские сервисы.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Развивать партнерства с лабораториями, аптеками, клиниками, страховыми компаниями.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Управлять бюджетом медицинского направления, ФОТ, себестоимостью.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Формировать медицинские регламенты, стандарты, KPI и систему мотивации врачей.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Активно использовать современные AI-сервисы в работе.</li>
+                        </ul>
+                    </section>
+
+                    <section id="requirements" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-900 mb-4">Требования</h2>
+                        <ul class="space-y-3 text-slate-600">
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Высшее медицинское образование; «Организация здравоохранения» — преимущество.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> От 5 лет опыта на руководящей позиции в коммерческой медицине.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Опыт запуска медицинских продуктов с нуля и их масштабирования.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Глубокое понимание рынка здравоохранения Казахстана.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Готовность работать на стыке медицины, продукта, IT и бизнеса.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Продвинутые навыки работы с AI-сервисами (ChatGPT, Claude, Gemini).</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Опыт в Telemedicine, HealthTech, MedTech или Digital Health — преимущество.</li>
+                        </ul>
+                    </section>
+
+                    <section id="conditions" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-900 mb-4">Условия</h2>
+                        <ul class="space-y-3 text-slate-600">
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Полный рабочий день, график 5/2.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Оклад + KPI, квартальный / годовой бонус.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Официальное оформление согласно ТК РК.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Работа в быстрорастущем направлении AI + медицина.</li>
+                            <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Перспектива профессионального роста до уровня топ-менеджмента.</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- Правая колонка (Сайдбар) -->
+                <div class="space-y-6">
+                    <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h2 class="text-lg font-bold text-slate-900 mb-4">Ключевые навыки</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium">Руководство коллективом</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium">Аналитическое мышление</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium">Управление бюджетом</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium">Казахский — C1</span>
+                        </div>
+                    </section>
+
+                    <section class="hidden md:block bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl shadow-lg text-center text-white">
+                        <h3 class="font-bold mb-2 text-lg">Заинтересовала вакансия?</h3>
+                        <a href="https://hh.kz/vacancy/139073456" target="_blank" rel="noopener noreferrer" class="block w-full mt-4 bg-white text-blue-700 hover:bg-slate-50 py-3 rounded-xl font-bold transition shadow-md">
+                            Откликнуться
+                        </a>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- Мобильная нижняя панель отклика -->
+        <div class="md:hidden fixed bottom-0 w-full bg-white border-t border-slate-200 z-40 p-4">
+            <a href="https://hh.kz/vacancy/139073456" target="_blank" rel="noopener noreferrer" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl text-center transition shadow-md">
                 Откликнуться на HH
             </a>
         </div>
-
-        <!-- Нижняя часть: Навигационные вкладки -->
-        <div class="border-t border-slate-100">
-            <div class="max-w-6xl mx-auto px-2 md:px-4">
-                <nav class="flex overflow-x-auto hide-scrollbar whitespace-nowrap">
-                    <a href="#about" class="tab-link text-slate-500 hover:text-blue-600 border-b-2 border-transparent py-3 px-4 text-sm md:text-base transition-colors">О компании</a>
-                    <a href="#duties" class="tab-link text-slate-500 hover:text-blue-600 border-b-2 border-transparent py-3 px-4 text-sm md:text-base transition-colors">Обязанности</a>
-                    <a href="#requirements" class="tab-link text-slate-500 hover:text-blue-600 border-b-2 border-transparent py-3 px-4 text-sm md:text-base transition-colors">Требования</a>
-                    <a href="#conditions" class="tab-link text-slate-500 hover:text-blue-600 border-b-2 border-transparent py-3 px-4 text-sm md:text-base transition-colors">Условия</a>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <!-- Отступ для контента из-за фиксированной шапки -->
-    <main class="max-w-6xl mx-auto px-4 pt-36 md:pt-40 pb-12 fade-in">
-        
-        <!-- Шапка вакансии -->
-        <div class="mb-10 max-w-3xl">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">MedTech</span>
-                <span class="text-slate-500 text-sm font-medium">Опубликовано сегодня</span>
-            </div>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">Главный врач цифровой клиники</h1>
-            
-            <div class="flex flex-wrap items-center gap-4 mb-8">
-                <div class="text-3xl font-bold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-2xl border border-emerald-100 shadow-sm">
-                    800 000 – 1 000 000 ₸
-                </div>
-                <span class="text-slate-500 font-medium">на руки, за месяц</span>
-            </div>
-
-            <!-- Теги условий -->
-            <div class="flex flex-wrap gap-2 mb-8">
-                <span class="bg-white border border-slate-200 text-slate-700 px-4 py-1.5 rounded-lg text-sm font-medium shadow-sm flex items-center gap-2">Полная занятость</span>
-                <span class="bg-white border border-slate-200 text-slate-700 px-4 py-1.5 rounded-lg text-sm font-medium shadow-sm flex items-center gap-2">Опыт 3–6 лет</span>
-                <span class="bg-white border border-slate-200 text-slate-700 px-4 py-1.5 rounded-lg text-sm font-medium shadow-sm flex items-center gap-2">График 5/2</span>
-                <span class="bg-white border border-slate-200 text-slate-700 px-4 py-1.5 rounded-lg text-sm font-medium shadow-sm flex items-center gap-2">Трудовой договор</span>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <!-- ЛЕВАЯ КОЛОНКА (Основной текст) -->
-            <div class="md:col-span-2 space-y-6">
-                
-                <!-- О компании -->
-                <section id="about" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
-                    <h2 class="text-xl font-bold text-slate-900 mb-4">О компании</h2>
-                    <div class="text-slate-600 leading-relaxed space-y-4">
-                        <p><strong>EmAI</strong> — казахстанская MedTech-компания, создающая цифровую клинику полного цикла.</p>
-                        <p>Мы строим экосистему: телемедицина → лабораторные исследования → расшифровка анализов → электронные рецепты → очные визиты → сопровождение пациента. Целевая модель — «одно окно» с бесшовным маршрутом пациента.</p>
-                    </div>
-                </section>
-
-                <!-- Обязанности -->
-                <section id="duties" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
-                    <h2 class="text-xl font-bold text-slate-900 mb-4">Обязанности</h2>
-                    <ul class="space-y-3 text-slate-600">
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Организовать качественное и безопасное оказание медицинской помощи, внедрить систему контроля качества и медицинские стандарты.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Развивать и управлять командой врачей, в том числе распределенной по регионам.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Обеспечивать соблюдение лицензионных требований, медицинского законодательства и внутренних регламентов.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Участвовать в создании и развитии цифровых продуктов: путь пациента, видеоконсультации, чат-сценарии, AI-триаж и другие медицинские сервисы.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Развивать партнерства с лабораториями, аптеками, клиниками, страховыми компаниями и другими участниками медицинской экосистемы.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Участвовать во взаимодействии с государственными системами здравоохранения и регулирующими органами Казахстана.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Управлять бюджетом медицинского направления, ФОТ, себестоимостью и операционной эффективностью.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Отвечать за ключевые показатели медицинского направления: SLA, загрузку врачей, качество медицинской помощи, завершение маршрута пациента, NPS и другие KPI.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Формировать медицинские регламенты, стандарты, KPI и систему мотивации врачей.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Активно использовать современные AI-сервисы в работе и участвовать в развитии AI-функциональности цифровой клиники.</li>
-                    </ul>
-                </section>
-
-                <!-- Требования -->
-                <section id="requirements" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
-                    <h2 class="text-xl font-bold text-slate-900 mb-4">Требования</h2>
-                    <ul class="space-y-3 text-slate-600">
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Высшее медицинское образование; образование по направлению «Организация здравоохранения и общественное здоровье» — преимущество.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> От 5 лет опыта на руководящей позиции в коммерческой медицине: главный врач, медицинский директор, заместитель главного врача или руководитель медицинского направления.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Опыт запуска медицинских продуктов или направлений с нуля и их последующего масштабирования.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Глубокое понимание рынка здравоохранения Казахстана и медицинского законодательства.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Опыт управления врачебной командой и построения системы контроля качества медицинской деятельности.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Презентационные навыки.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Готовность работать на стыке медицины, продукта, IT и бизнеса, а не только управлять классической клиникой.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Уверенное владение цифровыми инструментами и аналитическими системами.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Продвинутые навыки работы с AI-сервисами — крайне желательны. Практический опыт работы с ChatGPT, Claude, Gemini и аналогичными инструментами будет существенным преимуществом.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Понимание возможностей и ограничений ИИ, AI-триажа, систем поддержки врачебных решений и принципов безопасного применения AI в медицине — преимущество.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Опыт работы в Telemedicine, HealthTech, MedTech или Digital Health — преимущество.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Опыт интеграции с государственными медицинскими информационными системами, взаимодействия с Минздравом, лабораториями, страховыми компаниями и клиниками — преимущество.</li>
-                    </ul>
-                </section>
-
-                <!-- Условия -->
-                <section id="conditions" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
-                    <h2 class="text-xl font-bold text-slate-900 mb-4">Условия</h2>
-                    <ul class="space-y-3 text-slate-600">
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Полный рабочий день, график 5/2.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Конкурентный уровень дохода: фиксированный оклад + KPI, квартальный / годовой бонус.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Официальное оформление согласно ТК РК.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Работа в быстрорастущем направлении AI + медицина.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Возможность участвовать в создании цифровой клиники национального масштаба.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Возможность влиять на продукт с нуля и работать непосредственно с руководством компании.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Участие в профильных конференциях и профессиональное обучение.</li>
-                        <li class="flex items-start gap-3"><span class="text-blue-500 mt-1 font-bold">•</span> Перспектива профессионального роста до уровня топ-менеджмента направления / холдинга.</li>
-                    </ul>
-                </section>
-            </div>
-
-            <!-- ПРАВАЯ КОЛОНКА (Сайдбар) -->
-            <div class="space-y-6">
-                
-                <!-- Ключевые навыки -->
-                <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h2 class="text-lg font-bold text-slate-900 mb-4">Ключевые навыки</h2>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium">Руководство коллективом</span>
-                        <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium">Аналитическое мышление</span>
-                        <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium">Управление командой</span>
-                        <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium">Управление бюджетом</span>
-                        <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium">Казахский — C1</span>
-                    </div>
-                </section>
-
-                <!-- Локация -->
-                <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h2 class="text-lg font-bold text-slate-900 mb-2">Локация</h2>
-                    <p class="text-slate-600 text-sm mb-4">Алматы, проспект Достык, 180</p>
-                    <div class="w-full h-32 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 border border-slate-200">
-                        Карта
-                    </div>
-                    <p class="text-xs text-slate-500 mt-4 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Работа на месте работодателя
-                    </p>
-                </section>
-
-                <!-- Блок действия на десктопе -->
-                <section class="hidden md:block bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl shadow-lg text-center text-white">
-                    <h3 class="font-bold mb-2 text-lg">Заинтересовала вакансия?</h3>
-                    <p class="text-sm text-blue-100 mb-4">Отправьте свой отклик прямо на HeadHunter</p>
-                    <a href="https://hh.kz/vacancy/139073456" target="_blank" rel="noopener noreferrer" class="block w-full bg-white text-blue-700 hover:bg-slate-50 py-3 rounded-xl font-bold transition shadow-md">
-                        Откликнуться
-                    </a>
-                </section>
-
-            </div>
-        </div>
-    </main>
-
-    <!-- Мобильная фиксированная панель снизу -->
-    <div class="md:hidden fixed bottom-0 w-full bg-[#0a0a0a] border-t border-gray-800 z-50 p-4 pb-safe">
-        <div class="max-w-4xl mx-auto">
-            <button onclick="alert('Жалоба отправлена. Спасибо!')" class="w-full bg-[#2a1313] text-red-500 font-medium py-2.5 rounded-xl mb-3 transition hover:bg-[#3a1818] text-sm">
-                Пожаловаться на вакансию
-            </button>
-            <div class="flex gap-3">
-                <a href="https://hh.kz/vacancy/139073456" target="_blank" rel="noopener noreferrer" class="flex-1 bg-[#1e3a8a] hover:bg-blue-700 text-white font-medium py-3 rounded-xl text-center transition text-sm">
-                    Перейти к отклику
-                </a>
-                <button onclick="navigator.clipboard.writeText(window.location.href); alert('Ссылка скопирована!')" class="w-12 bg-[#1a1a1a] border border-gray-800 text-blue-400 rounded-xl flex items-center justify-center hover:bg-gray-800 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-                </button>
-            </div>
-        </div>
     </div>
 
-    <!-- Кнопка WhatsApp Архитектора (Плавающая) -->
-    <!-- На мобильном поднята выше нижней панели, на десктопе в правом нижнем углу -->
+    <!-- Кнопка WhatsApp (Видна на обеих страницах) -->
     <a href="https://wa.me/77777717707" target="_blank" rel="noopener noreferrer" 
-       class="fixed bottom-36 md:bottom-8 right-4 md:right-8 bg-[#25D366] hover:bg-[#20bd5a] text-white p-3.5 md:p-4 rounded-full shadow-lg z-50 transition-transform hover:scale-110 flex items-center justify-center"
-       title="Связаться с архитектором лендинга (WhatsApp)">
+       class="fixed bottom-24 md:bottom-8 right-4 md:right-8 bg-[#25D366] hover:bg-[#20bd5a] text-white p-3.5 md:p-4 rounded-full shadow-lg z-50 transition-transform hover:scale-110 flex items-center justify-center"
+       title="Связаться с архитектором лендинга">
         <svg class="w-7 h-7 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
     </a>
 
-    <!-- Скрипт для активации вкладок при скролле -->
+    <!-- Скрипт переключения страниц и вкладок -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        // Функции переключения между Главной и Вакансией
+        function showVacancy() {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-vacancy').classList.remove('hidden');
+            window.scrollTo(0, 0); // Скролл наверх
+            initTabs(); // Инициализируем вкладки при первом открытии
+        }
+
+        function showHome() {
+            document.getElementById('view-vacancy').classList.add('hidden');
+            document.getElementById('view-home').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        // Логика подсветки вкладок при скролле
+        let tabsInitialized = false;
+        function initTabs() {
+            if (tabsInitialized) return;
+            
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.tab-link');
-
-            const observerOptions = {
-                root: null,
-                rootMargin: '-20% 0px -60% 0px', // Настройка зоны срабатывания
-                threshold: 0
-            };
+            const observerOptions = { root: null, rootMargin: '-20% 0px -60% 0px', threshold: 0 };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.getAttribute('id');
-                        
-                        // Убираем активный класс со всех вкладок
                         navLinks.forEach(link => {
                             link.classList.remove('active', 'text-blue-600', 'font-bold');
                             link.classList.add('text-slate-500');
                         });
-
-                        // Добавляем активный класс нужной вкладке
                         const activeLink = document.querySelector(`.tab-link[href="#${id}"]`);
                         if (activeLink) {
                             activeLink.classList.add('active', 'text-blue-600', 'font-bold');
@@ -251,11 +262,10 @@
                     }
                 });
             }, observerOptions);
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        });
+            
+            sections.forEach(section => observer.observe(section));
+            tabsInitialized = true;
+        }
     </script>
 </body>
 </html>
